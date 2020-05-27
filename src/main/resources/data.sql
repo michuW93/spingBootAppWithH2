@@ -1,4 +1,4 @@
-INSERT INTO Test (first_name, last_name, email) VALUES
-  ('Lokesh', 'Gupta', 'abc@gmail.com'),
-  ('Deja', 'Vu', 'xyz@email.com'),
-  ('Caption', 'America', 'cap@marvel.com');
+INSERT INTO employee (id, first_name, pesel) VALUES
+  ('1', 'Gupta', '123'),
+  ('2', 'Vu', '234'),
+  ('3', 'Ert', '345');
