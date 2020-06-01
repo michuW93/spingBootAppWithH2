@@ -1,5 +1,7 @@
 package com.example.demo.Employee;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,26 +10,29 @@ import java.util.Objects;
 public class Employee {
     @Id
     @GeneratedValue
-    private long id;
+    private long employee_id;
 
     private String firstName;
 
     @Column(unique = true)
     private String pesel;
 
+    @NotNull
+    private Long department_id;
+
     public Employee(){}
 
-    public Employee(long id, String firstName){
-        this.id = id;
+    public Employee(long employee_id, String firstName){
+        this.employee_id = employee_id;
         this.firstName = firstName;
     }
 
-    public long getId() {
-        return id;
+    public long getEmployee_id() {
+        return employee_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmployee_id(long employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getFirstName() {
@@ -49,15 +54,16 @@ public class Employee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return id == employee.id &&
+        return employee_id == employee.employee_id &&
                 Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(pesel, employee.pesel);
+                Objects.equals(pesel, employee.pesel) &&
+                Objects.equals(department_id, employee.department_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, pesel);
+        return Objects.hash(employee_id, firstName, pesel, department_id);
     }
 }
