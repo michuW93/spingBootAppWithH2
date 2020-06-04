@@ -22,6 +22,13 @@ public class Employee {
 
     public Employee(){}
 
+    public Employee(long employee_id, String firstName, String pesel, Long department_id) {
+        this.employee_id = employee_id;
+        this.firstName = firstName;
+        this.pesel = pesel;
+        this.department_id = department_id;
+    }
+
     public Employee(long employee_id, String firstName){
         this.employee_id = employee_id;
         this.firstName = firstName;
@@ -49,6 +56,14 @@ public class Employee {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public Long getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(Long department_id) {
+        this.department_id = department_id;
     }
 
     @Override
