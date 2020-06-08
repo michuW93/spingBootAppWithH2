@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="EmployeeService">
+        <class>com.example.demo.Employee.Employee</class>
+        <properties>
+            <property name="spring.datasource.url" value="jdbc:h2:mem:testdb"/>
+            <property name="spring.datasource.driverClassName" value="org.h2.Driver"/>
+            <property name="spring.datasource.username" value="sa"/>
+            <property name="spring.datasource.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>
