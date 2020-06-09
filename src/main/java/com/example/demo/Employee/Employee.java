@@ -6,12 +6,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "EMPLOYEES")
 public class Employee {
     @Id
     @GeneratedValue
     private long employee_id;
 
+    @Column(name = "first_name")
     private String firstName;
 
     @Column(unique = true)
@@ -24,6 +25,12 @@ public class Employee {
 
     public Employee(long employee_id, String firstName, String pesel, Long department_id) {
         this.employee_id = employee_id;
+        this.firstName = firstName;
+        this.pesel = pesel;
+        this.department_id = department_id;
+    }
+
+    public Employee(String firstName, String pesel, Long department_id) {
         this.firstName = firstName;
         this.pesel = pesel;
         this.department_id = department_id;

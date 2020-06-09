@@ -3,11 +3,10 @@
     <persistence-unit name="EmployeeService">
         <class>com.example.demo.Employee.Employee</class>
         <properties>
-            <property name="spring.datasource.url" value="jdbc:h2:mem:testdb"/>
-            <property name="spring.datasource.driverClassName" value="org.h2.Driver"/>
-            <property name="spring.datasource.username" value="sa"/>
-            <property name="spring.datasource.password" value=""/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testdb"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
         </properties>
     </persistence-unit>
 </persistence>

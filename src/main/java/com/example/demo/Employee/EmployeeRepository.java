@@ -13,8 +13,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAll();
 
     @Query(
-            value = "SELECT * FROM employees e where e.first_name = :firstName AND e.department_id = :department",
+            value = "SELECT * FROM employees e where e.first_name = :firstName",
             nativeQuery=true
     )
-    Employee findByFirstNameAndDepartment(String firstName, Long department);
+    Employee findByFirstNameAndDepartment(String firstName);
 }

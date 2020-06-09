@@ -25,8 +25,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findByFirstnameAndDepartment(String firstName, Long department) {
-        return repository.findByFirstNameAndDepartment(firstName, department);
+    public Employee findByFirstnameAndDepartment(String firstName) {
+        return repository.findByFirstNameAndDepartment(firstName);
     }
 
 }

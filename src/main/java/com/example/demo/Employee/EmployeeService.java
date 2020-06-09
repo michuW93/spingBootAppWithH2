@@ -7,5 +7,5 @@ public interface EmployeeService {
 
     List<Employee> findAll();
 
-    Employee findByFirstnameAndDepartment(String firstName, Long department);
+    Employee findByFirstnameAndDepartment(String firstName);
 }

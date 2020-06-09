@@ -28,8 +28,8 @@ public class EmployeeController {
         return employeeServiceImpl.findByPesel(pesel);
     }
 
-    @GetMapping(path="{firstName}/{department}")
-    public Employee getEmployeeByFirstNameAndDepartment(@PathVariable("firstName") String firstName, @PathVariable("department") Long department){
-        return employeeServiceImpl.findByFirstnameAndDepartment(firstName, department);
+    @GetMapping(path="{firstName}")
+    public Employee getEmployeeByFirstNameAndDepartment(@PathVariable("firstName") String firstName){
+        return employeeServiceImpl.findByFirstnameAndDepartment(firstName);
     }
 }
