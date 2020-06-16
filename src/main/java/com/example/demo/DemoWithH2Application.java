@@ -18,14 +18,45 @@ public class DemoWithH2Application {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("EmployeeService");
         EntityManager em = emf.createEntityManager();
 
-        Employee employee = new Employee("Michal", "9312", 1L);
+        createEmployee(em, "Michal", "930818", 1L);
+
+        Employee employee1 = em.find(Employee.class, 1L);
+        System.out.println(employee1.getFirstName());
+        removeEmployee(em, employee1.getEmployee_id());
+
+        Employee removedEmployee = em.find(Employee.class, 1L);
+        if (removedEmployee != null) {
+            System.out.println(removedEmployee.getFirstName());
+        } else {
+            System.out.println("Employee not found");
+        }
+
+        changeEmployeeName(em, 2, "Edward");
+    }
+
+    private static void createEmployee(EntityManager em, String firstName, String pesel, long departmentId){
+        Employee employee = new Employee(firstName, pesel, departmentId);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(employee);
         transaction.commit();
-
-        Employee employee1 = em.find(Employee.class, 1L);
-        System.out.println(employee1.getFirstName());
     }
 
+    private static void removeEmployee(EntityManager em, long employeeId) {
+        Employee emp = em.find(Employee.class, employeeId);
+        if (emp != null) {
+            em.remove(emp);
+        }
+    }
+
+    private static Employee changeEmployeeName(EntityManager em, long id, String firstName) {
+        Employee emp = em.find(Employee.class, id);
+        if (emp != null) {
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            emp.setFirstName(firstName);
+            transaction.commit();
+        }
+        return emp;
+    }
 }
