@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository repository;
-    private final EntityManager em;
+    private final EntityManager entityManager;
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository repository, EntityManager entityManager) {
         this.repository = repository;
-        em = entityManager;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -34,31 +34,35 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.findByFirstNameAndDepartment(firstName);
     }
 
+    @Override
     public void findAllEmployees() {
-        TypedQuery<Employee> query = em.createQuery("SELECT e FROM Employee e", Employee.class);
+        TypedQuery<Employee> query = entityManager.createQuery("SELECT e FROM Employee e", Employee.class);
         List<Employee> emps = query.getResultList();
         System.out.println("Num of employees: " + emps.size());
     }
 
+    @Override
     public void createEmployee(String firstName, String pesel, long departmentId) {
         Employee employee = new Employee(firstName, pesel, departmentId);
-        EntityTransaction transaction = em.getTransaction();
+        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        em.persist(employee);
+        entityManager.persist(employee);
         transaction.commit();
     }
 
+    @Override
     public void removeEmployee(long employeeId) {
-        Employee emp = em.find(Employee.class, employeeId);
+        Employee emp = entityManager.find(Employee.class, employeeId);
         if (emp != null) {
-            em.remove(emp);
+            entityManager.remove(emp);
         }
     }
 
+    @Override
     public Employee changeEmployeeName(long id, String firstName) {
-        Employee emp = em.find(Employee.class, id);
+        Employee emp = entityManager.find(Employee.class, id);
         if (emp != null) {
-            EntityTransaction transaction = em.getTransaction();
+            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
             emp.setFirstName(firstName);
             transaction.commit();
@@ -66,8 +70,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return emp;
     }
 
+    @Override
     public Employee findEmployeeById(long id) {
-        Employee employee = em.find(Employee.class, id);
+        Employee employee = entityManager.find(Employee.class, id);
         if (employee != null) {
             System.out.println(employee.getFirstName());
         } else {
