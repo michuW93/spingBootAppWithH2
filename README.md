@@ -8,8 +8,4 @@ DONE: add flyway because now can't insert to table created by DAO class: @Table(
 
 DONE: fix controller -> service -> dao
 
-DONE: add second table
-
-TODO: add entity class for department
-
-TODO: connect entities (employee with department)
+TODO: refactor
