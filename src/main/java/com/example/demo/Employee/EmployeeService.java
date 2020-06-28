@@ -1,5 +1,7 @@
 package com.example.demo.Employee;
 
+import com.example.demo.Department.Department;
+
 import java.util.List;
 
 public interface EmployeeService {
@@ -11,7 +13,7 @@ public interface EmployeeService {
 
     void findAllEmployees();
 
-    void createEmployee(String firstName, String pesel, long departmentId);
+    void createEmployee(String firstName, String pesel, Department department);
 
     void removeEmployee(long employeeId);
 

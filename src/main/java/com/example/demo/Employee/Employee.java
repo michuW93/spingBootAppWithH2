@@ -1,5 +1,7 @@
 package com.example.demo.Employee;
 
+import com.example.demo.Department.Department;
+import com.example.demo.ParkingSpace.ParkingSpace;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -19,21 +21,28 @@ public class Employee {
     private String pesel;
 
     @NotNull
-    private Long department_id;
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
+
+    @OneToOne
+    @JoinColumn(name = "parking_space_id")
+    private ParkingSpace parkingSpace;
 
     public Employee(){}
 
-    public Employee(long employee_id, String firstName, String pesel, Long department_id) {
+    public Employee(long employee_id, String firstName, String pesel, Department department, ParkingSpace parkingSpace) {
         this.employee_id = employee_id;
         this.firstName = firstName;
         this.pesel = pesel;
-        this.department_id = department_id;
+        this.department = department;
+        this.parkingSpace = parkingSpace;
     }
 
-    public Employee(String firstName, String pesel, Long department_id) {
+    public Employee(String firstName, String pesel, Department department) {
         this.firstName = firstName;
         this.pesel = pesel;
-        this.department_id = department_id;
+        this.department = department;
     }
 
     public Employee(long employee_id, String firstName){
@@ -65,12 +74,20 @@ public class Employee {
         this.pesel = pesel;
     }
 
-    public Long getDepartment_id() {
-        return department_id;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartment_id(Long department_id) {
-        this.department_id = department_id;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public ParkingSpace getParkingSpace() {
+        return parkingSpace;
+    }
+
+    public void setParkingSpace(ParkingSpace parkingSpace) {
+        this.parkingSpace = parkingSpace;
     }
 
     @Override
@@ -81,11 +98,22 @@ public class Employee {
         return employee_id == employee.employee_id &&
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(pesel, employee.pesel) &&
-                Objects.equals(department_id, employee.department_id);
+                Objects.equals(department, employee.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employee_id, firstName, pesel, department_id);
+        return Objects.hash(employee_id, firstName, pesel, department);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employee_id=" + employee_id +
+                ", firstName='" + firstName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", department=" + department.toString() +
+                ", parkingSpace=" + parkingSpace.toString() +
+                '}';
     }
 }

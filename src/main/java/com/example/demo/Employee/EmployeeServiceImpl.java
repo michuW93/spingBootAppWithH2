@@ -1,5 +1,6 @@
 package com.example.demo.Employee;
 
+import com.example.demo.Department.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void createEmployee(String firstName, String pesel, long departmentId) {
-        Employee employee = new Employee(firstName, pesel, departmentId);
+    public void createEmployee(String firstName, String pesel, Department department) {
+        Employee employee = new Employee(firstName, pesel, new Department(1L));
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(employee);
