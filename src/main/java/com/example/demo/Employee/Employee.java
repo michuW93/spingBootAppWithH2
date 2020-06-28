@@ -2,9 +2,11 @@ package com.example.demo.Employee;
 
 import com.example.demo.Department.Department;
 import com.example.demo.ParkingSpace.ParkingSpace;
+import com.example.demo.Project.Project;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +31,12 @@ public class Employee {
     @JoinColumn(name = "parking_space_id")
     private ParkingSpace parkingSpace;
 
+    @ManyToMany
+    @JoinTable(name="emp_proj",
+            joinColumns=@JoinColumn(name="EMP_ID"),
+            inverseJoinColumns=@JoinColumn(name="PROJ_ID"))
+    private Collection<Project> projects;
+
     public Employee(){}
 
     public Employee(long employee_id, String firstName, String pesel, Department department, ParkingSpace parkingSpace) {
@@ -48,6 +56,14 @@ public class Employee {
     public Employee(long employee_id, String firstName){
         this.employee_id = employee_id;
         this.firstName = firstName;
+    }
+
+    public Collection<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Collection<Project> projects) {
+        this.projects = projects;
     }
 
     public long getEmployee_id() {
@@ -114,6 +130,7 @@ public class Employee {
                 ", pesel='" + pesel + '\'' +
                 ", department=" + department.toString() +
                 ", parkingSpace=" + parkingSpace.toString() +
+                ", projects=" + projects.toString() +
                 '}';
     }
 }

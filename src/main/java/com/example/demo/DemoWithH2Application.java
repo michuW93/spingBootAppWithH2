@@ -21,7 +21,7 @@ public class DemoWithH2Application {
         EntityManager em = emf.createEntityManager();
 
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl(null, em);
-        employeeService.createEmployee( "Michal", "930818", new Department(1L));
+        employeeService.createEmployee("Michal", "930818", new Department(1L));
 
         Employee employee1 = employeeService.findEmployeeById(1L);
         employeeService.removeEmployee(employee1.getEmployee_id());
@@ -38,7 +38,7 @@ public class DemoWithH2Application {
         Employee employee = employeeService.findEmployeeById(2);
         Department department = employee.getDepartment();
         ParkingSpace parkingSpace = employee.getParkingSpace();
-        System.out.println(employee.toString());
+        System.out.println(employee.toString() + employee.getProjects().size());
 
         employeeService.findAllEmployees();
     }
