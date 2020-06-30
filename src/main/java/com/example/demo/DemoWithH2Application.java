@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.Address.Address;
 import com.example.demo.Department.Department;
 import com.example.demo.Employee.Employee;
 import com.example.demo.Employee.EmployeeServiceImpl;
@@ -35,7 +36,14 @@ public class DemoWithH2Application {
 
         employeeService.changeEmployeeName(2, "Edward");
 
+        Address address = new Address();
+        address.setCity("Wroclaw");
+        address.setZip("50-542");
+
         Employee employee = employeeService.findEmployeeById(2);
+        employee.setAddress(address);
+        employeeService.saveEmployee(employee);
+
         Department department = employee.getDepartment();
         ParkingSpace parkingSpace = employee.getParkingSpace();
         System.out.println(employee.toString() + employee.getProjects().size());

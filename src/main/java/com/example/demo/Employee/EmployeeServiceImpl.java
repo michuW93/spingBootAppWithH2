@@ -81,4 +81,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee;
     }
+
+    public Employee saveEmployee(Employee employee){
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(employee);
+        transaction.commit();
+        return employee;
+    }
 }

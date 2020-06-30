@@ -3,7 +3,11 @@ CREATE TABLE EMPLOYEES (
   first_name VARCHAR(250) NOT NULL,
   pesel VARCHAR(250) NOT NULL,
   department_id INT NOT NULL,
-  parking_space_id INT
+  parking_space_id INT,
+  street VARCHAR(250),
+  city VARCHAR(250),
+  state VARCHAR(250),
+  zip_code VARCHAR(250)
 );
 
 CREATE SEQUENCE HIBERNATE_SEQUENCE START WITH 4 INCREMENT BY 1;

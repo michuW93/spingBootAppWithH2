@@ -1,5 +1,6 @@
 package com.example.demo.Employee;
 
+import com.example.demo.Address.Address;
 import com.example.demo.Department.Department;
 import com.example.demo.ParkingSpace.ParkingSpace;
 import com.example.demo.Project.Project;
@@ -27,7 +28,7 @@ public class Employee {
     @JoinColumn(name="department_id")
     private Department department;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parking_space_id")
     private ParkingSpace parkingSpace;
 
@@ -36,6 +37,8 @@ public class Employee {
             joinColumns=@JoinColumn(name="EMP_ID"),
             inverseJoinColumns=@JoinColumn(name="PROJ_ID"))
     private Collection<Project> projects;
+
+    @Embedded private Address address;
 
     public Employee(){}
 
@@ -56,6 +59,14 @@ public class Employee {
     public Employee(long employee_id, String firstName){
         this.employee_id = employee_id;
         this.firstName = firstName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Collection<Project> getProjects() {
@@ -114,12 +125,15 @@ public class Employee {
         return employee_id == employee.employee_id &&
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(pesel, employee.pesel) &&
-                Objects.equals(department, employee.department);
+                Objects.equals(department, employee.department) &&
+                Objects.equals(parkingSpace, employee.parkingSpace) &&
+                Objects.equals(projects, employee.projects) &&
+                Objects.equals(address, employee.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employee_id, firstName, pesel, department);
+        return Objects.hash(employee_id, firstName, pesel, department, parkingSpace, projects, address);
     }
 
     @Override
@@ -131,6 +145,7 @@ public class Employee {
                 ", department=" + department.toString() +
                 ", parkingSpace=" + parkingSpace.toString() +
                 ", projects=" + projects.toString() +
+                ", address=" + address.toString() +
                 '}';
     }
 }
