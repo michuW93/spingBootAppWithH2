@@ -4,6 +4,7 @@ import com.example.demo.Address.Address;
 import com.example.demo.Department.Department;
 import com.example.demo.ParkingSpace.ParkingSpace;
 import com.example.demo.Project.Project;
+import com.example.demo.VacationEntry.VacationEntry;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Employee {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="department_id")
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -33,14 +34,23 @@ public class Employee {
     private ParkingSpace parkingSpace;
 
     @ManyToMany
-    @JoinTable(name="emp_proj",
-            joinColumns=@JoinColumn(name="EMP_ID"),
-            inverseJoinColumns=@JoinColumn(name="PROJ_ID"))
+    @JoinTable(name = "emp_proj",
+            joinColumns = @JoinColumn(name = "EMP_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROJ_ID"))
     private Collection<Project> projects;
 
-    @Embedded private Address address;
+    @Embedded
+    private Address address;
 
-    public Employee(){}
+    @ElementCollection(targetClass = VacationEntry.class)
+    @CollectionTable(name = "vacation",
+            joinColumns= @JoinColumn(name = "emp_id"))
+    @AttributeOverride(name = "daysTaken",
+            column= @Column(name = "days_abs"))
+    private Collection vacationBookings;
+
+    public Employee() {
+    }
 
     public Employee(long employee_id, String firstName, String pesel, Department department, ParkingSpace parkingSpace) {
         this.employee_id = employee_id;
@@ -56,7 +66,7 @@ public class Employee {
         this.department = department;
     }
 
-    public Employee(long employee_id, String firstName){
+    public Employee(long employee_id, String firstName) {
         this.employee_id = employee_id;
         this.firstName = firstName;
     }
@@ -67,6 +77,14 @@ public class Employee {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Collection getVacationBookings() {
+        return vacationBookings;
+    }
+
+    public void setVacationBookings(Collection vacationBookings) {
+        this.vacationBookings = vacationBookings;
     }
 
     public Collection<Project> getProjects() {
@@ -146,6 +164,7 @@ public class Employee {
                 ", parkingSpace=" + parkingSpace.toString() +
                 ", projects=" + projects.toString() +
                 ", address=" + address.toString() +
+                ", vacations=" + vacationBookings.toString() +
                 '}';
     }
 }
