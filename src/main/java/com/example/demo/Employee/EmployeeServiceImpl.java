@@ -3,6 +3,8 @@ package com.example.demo.Employee;
 import com.example.demo.Department.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -102,8 +104,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .getResultList();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void assignDepartment(Long departmentId, String pesel) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        EntityTransaction transaction = entityManager.getTransaction(); //normally annotation would be enough but there is problem with @Transactional with H2 db
         transaction.begin();
         entityManager.createQuery("UPDATE Employee e set e.department.departmentId = :departmentId where e.pesel = :pesel")
                 .setParameter("departmentId", departmentId)
