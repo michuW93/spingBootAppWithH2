@@ -11,6 +11,13 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
+@NamedQueries(
+        {
+                @NamedQuery(name = "Employee.findAll", query = "SELECT e from Employee e"),
+                @NamedQuery(name = "Employee.findByPesel", query = "SELECT e from Employee e where pesel = :pesel"),
+                @NamedQuery(name = "Employee.findEmployeesForDepartment", query = "SELECT e from Employee e where e.department.departmentId = :departmentId ORDER BY e.firstName")
+        }
+)
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
@@ -44,9 +51,9 @@ public class Employee {
 
     @ElementCollection(targetClass = VacationEntry.class)
     @CollectionTable(name = "vacation",
-            joinColumns= @JoinColumn(name = "emp_id"))
+            joinColumns = @JoinColumn(name = "emp_id"))
     @AttributeOverride(name = "daysTaken",
-            column= @Column(name = "days_abs"))
+            column = @Column(name = "days_abs"))
     private Collection vacationBookings;
 
     public Employee() {

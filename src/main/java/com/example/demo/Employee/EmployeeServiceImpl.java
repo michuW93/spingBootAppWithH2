@@ -89,4 +89,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         transaction.commit();
         return employee;
     }
+
+    public Employee findEmployeeByPesel(String pesel){
+        return entityManager.createNamedQuery("Employee.findByPesel", Employee.class)
+                .setParameter("pesel", pesel)
+                .getSingleResult();
+    }
+
+    public List<Employee> findEmployeesForDepartment(Long departmentId){
+        return entityManager.createNamedQuery("Employee.findEmployeesForDepartment", Employee.class)
+                .setParameter("departmentId", departmentId)
+                .getResultList();
+    }
 }

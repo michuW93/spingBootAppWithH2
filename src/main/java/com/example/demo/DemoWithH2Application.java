@@ -4,7 +4,6 @@ import com.example.demo.Address.Address;
 import com.example.demo.Department.Department;
 import com.example.demo.Employee.Employee;
 import com.example.demo.Employee.EmployeeServiceImpl;
-import com.example.demo.ParkingSpace.ParkingSpace;
 import com.example.demo.Queries.QueryService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,12 +44,13 @@ public class DemoWithH2Application {
         employee.setAddress(address);
         employeeService.saveEmployee(employee);
 
-        Department department = employee.getDepartment();
-        ParkingSpace parkingSpace = employee.getParkingSpace();
         System.out.println(employee.toString() + employee.getProjects().size());
 
         QueryService queryService = new QueryService(em);
         System.out.println("Result from query service - parking space lot: " + queryService.getParkingSpaceLotForEmployee(employee));
+        System.out.println("Result from query service - name of department: " + queryService.getCompanyIdForEmployee(employee));
+        System.out.println("Result from @NamedQuery - employee: " + employeeService.findEmployeeByPesel("234"));
+        System.out.println("Result from @NamedQuery - employees for department: " + employeeService.findEmployeesForDepartment(2L));
 
         employeeService.findAllEmployees();
     }
