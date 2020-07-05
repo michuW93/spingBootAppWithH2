@@ -82,7 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-    public Employee saveEmployee(Employee employee){
+    public Employee saveEmployee(Employee employee) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(employee);
@@ -90,15 +90,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-    public Employee findEmployeeByPesel(String pesel){
+    public Employee findEmployeeByPesel(String pesel) {
         return entityManager.createNamedQuery("Employee.findByPesel", Employee.class)
                 .setParameter("pesel", pesel)
                 .getSingleResult();
     }
 
-    public List<Employee> findEmployeesForDepartment(Long departmentId){
+    public List<Employee> findEmployeesForDepartment(Long departmentId) {
         return entityManager.createNamedQuery("Employee.findEmployeesForDepartment", Employee.class)
                 .setParameter("departmentId", departmentId)
                 .getResultList();
+    }
+
+    public void assignDepartment(Long departmentId, String pesel) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.createQuery("UPDATE Employee e set e.department.departmentId = :departmentId where e.pesel = :pesel")
+                .setParameter("departmentId", departmentId)
+                .setParameter("pesel", pesel)
+                .executeUpdate();
+        transaction.commit();
     }
 }

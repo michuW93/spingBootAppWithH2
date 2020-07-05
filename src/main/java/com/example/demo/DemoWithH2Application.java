@@ -52,6 +52,7 @@ public class DemoWithH2Application {
         System.out.println("Result from @NamedQuery - employee: " + employeeService.findEmployeeByPesel("234"));
         System.out.println("Result from @NamedQuery - employees for department: " + employeeService.findEmployeesForDepartment(2L));
 
+        employeeService.assignDepartment(1L, "234");
         employeeService.findAllEmployees();
     }
 }
