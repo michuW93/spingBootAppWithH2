@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
@@ -113,5 +116,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .setParameter("pesel", pesel)
                 .executeUpdate();
         transaction.commit();
+    }
+
+    public Employee getEmployeeById(long id){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Employee> cq = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> emp = cq.from(Employee.class);
+        cq.select(emp).where(criteriaBuilder.equal(emp.get("employee_id"), id));
+        return entityManager.createQuery(cq).getSingleResult();
     }
 }
