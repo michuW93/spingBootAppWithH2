@@ -55,6 +55,6 @@ public class DemoWithH2Application {
         employeeService.assignDepartment(1L, "234");
         employeeService.findAllEmployees();
 
-        System.out.println("Employee taken by criteria API: " + employeeService.getEmployeeById(2));
+        System.out.println("Employee taken using criteria API: " + employeeService.getEmployeeById(2));
     }
 }
